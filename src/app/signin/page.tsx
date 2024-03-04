@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Input, Button, Image } from '@nextui-org/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import axios from 'axios'; // Import Axios
 import toast from 'react-hot-toast';
 
 interface FormData {
@@ -11,40 +12,32 @@ interface FormData {
 }
 
 const Home: React.FC = () => {
+  const baseURL = "http://localhost:5001";
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
   });
 
-  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
-  const router = useRouter();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (isEmailValid) {
-      if (formData.email === 'asp21k@outlook.com' && formData.password === 'asp21k') {
-        toast.success('Login successful'); // Show success toast
-        router.push('/');
-        return;
-      }
-
-      toast.error('Invalid email or password'); // Show error toast
-    } else {
-      console.error('Invalid email');
+    try {
+      const response = await axios.post(`${baseURL}/user/login`, formData);
+      toast.success(response.data.message);
+      router.push("/"); // Redirect the user
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      toast.error('Invalid email or password');
     }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const email = e.target.value;
-    const isValid = /\S+@\S+\.\S+/.test(email);
-    setIsEmailValid(isValid);
-    setFormData((prevData) => ({ ...prevData, email }));
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const password = e.target.value;
-    setFormData((prevData) => ({ ...prevData, password }));
   };
 
   return (
@@ -55,43 +48,39 @@ const Home: React.FC = () => {
         </div>
         <div className="p-8 w-1/2 h-full shadow-md rounded-lg">
           <h2 className="text-2xl font-semibold mb-4 text-center">Welcome</h2>
-
-          <form onSubmit={handleSubmit}>
+          <form >
             <div className="mb-4">
               <Input
                 type="email"
+                name="email"
                 placeholder="Email"
                 value={formData.email}
-                onChange={handleEmailChange}
-                className={`w-full p-2 rounded ${isEmailValid ? '' : 'border-red-500'}`}
-              />
-              {!isEmailValid && (
-                <p className="text-red-500 text-sm">Please enter a valid email address.</p>
-              )}
-            </div>
-
-            <div className="mb-4">
-              <Input
-                type="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handlePasswordChange}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
-
+            <div className="mb-4">
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full p-2 rounded"
+              />
+            </div>
             <div className="flex items-center justify-center space-x-3">
               <Button
                 type="submit"
                 variant="ghost"
                 color="secondary"
                 className="text-white px-4 py-2 rounded font-medium"
+                onClick={handleSubmit}
               >
                 Sign In
               </Button>
             </div>
           </form>
-
           <div className="mt-4 text-center">
             <p className="text-gray-500">
               Dont have an account yet?{' '}
