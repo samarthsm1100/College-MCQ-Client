@@ -9,7 +9,7 @@ export default function layout({children}:{children:React.ReactNode}) {
         <h1 className="text-2xl font-bold">MCQ <span className="text-blue-500">Test</span></h1>
         <div className="flex gap-2 items-center">
       <Timer hours={3} minutes={0} seconds={0}/>
-        <Button color="success">Submit</Button>
+        <Button color="success" className="font-semibold text-white text-md">Submit</Button>
         </div>
       </nav>
         <div className="flex">
