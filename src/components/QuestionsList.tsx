@@ -1,13 +1,25 @@
-export default function QuestionsList({arr}:{arr:number[]}) {
+"use client";
+import { QuestionsContext } from "@/contexts/QuestionsContext";
+import { useContext } from "react";
+import Link from "next/link";
+export default function QuestionsList() {
+  const questions = useContext(QuestionsContext);
   return (
-    <div className="h-screen overflow-y-scroll w-fit px-2 bg-slate-200">
+    <div className="h-[90vh] overflow-y-scroll w-fit px-2 bg-slate-200">
       <ul>
-        {arr.map((i:number)=>{
-          return <li className="relative" key={i}>
-                <button className="rounded-full my-3 p-4 w-full h-full px-6 text-xl border-2 border-slate-500">{i}</button>
+        {questions.map((question) => {
+          return (
+            <li className="relative" key={question.index}>
+              <Link href={`/tests/${question.index}`}>
+                {" "}
+                <button className="rounded-full my-3 p-2 w-full h-full px-6 text-lg border-2 border-slate-500">
+                  {question.index}
+                </button>
+              </Link>
             </li>
+          );
         })}
       </ul>
     </div>
-  )
+  );
 }
