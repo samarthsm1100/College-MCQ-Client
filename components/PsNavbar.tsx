@@ -10,7 +10,7 @@ export default function App() {
       </NavbarBrand>
       <NavbarContent className="sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/ps/domain">
             Domain
           </Link>
         </NavbarItem>
