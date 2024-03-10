@@ -5,6 +5,7 @@ import { Button } from "@nextui-org/react"
 import PsNavbar from "../../../../components/PsNavbar"
 import { useState } from "react";
 import DomainForm from "../../../../components/DomainForm";
+import PsDomainDelete from "../../../../components/PsDomainDelete";
 
 const domain = [
     {name: 'C++'},
@@ -26,6 +27,12 @@ const ProblemSetter = () => {
     const [selectedDomain, setSelectedDomain] = useState({})
     const [flag, setFlag] = useState(false)
 
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        console.log(e.target[0].files[0])
+        console.log('Submitted')
+    }
+
   return (
 
     <div className=" w-full flex m-0 p-0 bg-slate-200">
@@ -43,7 +50,7 @@ const ProblemSetter = () => {
                     <ul className="divide-y text-start divide-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-white">
                     {domain.map((item, index) => (
                         <div className="py-4 flex items-center" key={index}>
-                        <div className="text-lg font-semibold text-violet-900 ml-4" onClick={() => {setSelectedDomain(item); setFlag(true)}}>
+                        <div className="text-lg font-semibold text-violet-900 ml-4 hover:cursor-pointer" onClick={() => {setSelectedDomain(item); setFlag(true)}}>
                             <span className="rounded-full bg-white p-1 text-center mr-4">{index+1}&nbsp;</span>
                             {item.name}
                         </div>
@@ -77,8 +84,12 @@ const ProblemSetter = () => {
                             <img src='https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' alt="domainImg" className="mt-10" width={200} height={200}/>
 
                             <div className="flex flex-col gap-4 mt-6">
-                                <Button className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered">Add Questions</Button>
-                                <Button className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered">Delete Domain</Button>
+                                <form method="post" onSubmit={handleSubmit} className="flex flex-col gap-4">
+                                    <label className="text-xl font-semibold text-black">Upload CSV : </label>
+                                    <input type="file" className="border border-black rounded-md"/>
+                                    <Button type="submit" className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered">Add Questions</Button>
+                                </form>
+                                <PsDomainDelete domain={selectedDomain as { name: string; image_url: string; }}/>
                             </div>
 
                         </div>
