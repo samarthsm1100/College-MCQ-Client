@@ -10,6 +10,7 @@ import { FiX, FiCheck } from 'react-icons/fi';
 const testpreview: React.FC = () => {
 
     useEffect(() => { }, [])
+    const router = useRouter()
 
     const questions = [
         {
@@ -82,6 +83,11 @@ const testpreview: React.FC = () => {
                         :
                         <p>No questions</p>
                 }
+
+                <div className="flex justify-between mt-6">
+                    <Button color="secondary" variant='solid'>Download Report</Button>
+                    <Button color="secondary" variant='solid' onClick={() => router.push('/')}>Go to homepage</Button>
+                </div>
             </div>
         </div>
     );
