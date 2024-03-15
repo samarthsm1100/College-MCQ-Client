@@ -1,4 +1,5 @@
 import ActiveSlotCard from "../../../../components/ActiveSlotCard"
+import PsNavbar from "../../../../components/PsNavbar"
 
 interface Slot{
   slot_id:Number,
@@ -70,6 +71,7 @@ const ActiveSlots:React.FC = () => {
   ];
   return (
     <div>
+      <PsNavbar/>
       <div className="mx-16 my-12">
       
       <h2 className="font-bold text-2xl py-4">Active Slots</h2>
