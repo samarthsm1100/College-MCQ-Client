@@ -16,12 +16,22 @@ export default function App() {
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground" href="#" >
-            Slot
+            Create Slot
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground" href="#">
-            CSV
+            Active Slots
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            All Slots
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            Leaderboard
           </Link>
         </NavbarItem>
       </NavbarContent>
