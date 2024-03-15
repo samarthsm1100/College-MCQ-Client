@@ -72,7 +72,7 @@ export default function App(slot: any) {
                 {`Created By: ${slot.slot.first_name} ${slot.slot.last_name}`}
             </p>
             <div className="flex gap-4">
-                <EditSlotModal/>
+                <EditSlotModal key={slot.slot.slot_id} slot={slot.slot}/>
                 
                 <DeleteSlotModal/>
             </div>
