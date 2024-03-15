@@ -15,22 +15,22 @@ export default function App() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#" >
+          <Link color="foreground" href="/ps/createSlot" >
             Create Slot
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/ps/activeSlots">
             Active Slots
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/ps/allSlots">
             All Slots
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/ps/leaderboard">
             Leaderboard
           </Link>
         </NavbarItem>
