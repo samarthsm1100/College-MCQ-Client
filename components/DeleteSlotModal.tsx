@@ -6,6 +6,9 @@ import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDis
 export default function DeleteSlotModal() {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
+  const handleDelete =()=>{
+    
+  }
   return (
     <>
       <Button onPress={onOpen} color="danger" variant="ghost">Delete</Button>
@@ -24,7 +27,7 @@ export default function DeleteSlotModal() {
                 <Button color="default" variant="shadow" onPress={onClose}>
                   Cancel
                 </Button>
-                <Button color="danger" variant="ghost" onPress={onClose}>
+                <Button color="danger" variant="ghost" onPress={onClose} onClick={()=>{handleDelete()}}>
                   Delete
                 </Button>
               </ModalFooter>

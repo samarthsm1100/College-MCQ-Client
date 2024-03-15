@@ -21,8 +21,8 @@ const AllSlots: React.FC = () => {
     {
       slot_id: 1,
       slot_name: "DSA Mock Test",
-      start_time: "2023-10-01 10:00",
-      end_time: "2023-10-01 13:00",
+      start_time: "10:00",
+      end_time: "13:00",
       total_question: 30,
       easy: 10,
       medium: 10,
@@ -34,8 +34,8 @@ const AllSlots: React.FC = () => {
     {
       slot_id: 2,
       slot_name: "MPL Mock Test",
-      start_time: "2023-10-01 10:00",
-      end_time: "2023-10-01 13:00",
+      start_time: "10:00",
+      end_time: "13:00",
       total_question: 30,
       easy: 10,
       medium: 10,
@@ -60,8 +60,8 @@ const AllSlots: React.FC = () => {
     {
       slot_id: 4,
       slot_name: "WT Mock Test",
-      start_time: "2023-10-01 10:00",
-      end_time: "2023-10-01 13:00",
+      start_time: "10:00",
+      end_time: "13:00",
       total_question: 30,
       easy: 10,
       medium: 10,
@@ -74,9 +74,6 @@ const AllSlots: React.FC = () => {
   return (
     <div>
       <div className="mx-16 my-12">
-        {/* 
-        update form */}
-
         <h2 className="font-bold text-2xl py-4">All Slots</h2>
         <div className="grid grid-cols-3 gap-6">
           {
