@@ -5,23 +5,12 @@ import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import PsNavbar from "../../../../components/PsNavbar"
 
-//   slot_name:String,
-//   start_time:String,
-//   end_time:String,
-//   total_question:Number,
-//   easy:Number,
-//   medium:Number,
-//   hard:Number,
-//   domain_name:String,
-
-
-
 const CreateSlot: React.FC = () => {
   const router = useRouter()
 
   const onSubmit=async (values:any,errors:any)=>{
-    console.log(values)
-    console.log(errors)
+    // console.log(values)
+    // console.log(errors)
     alert('New Slot created!');
     //send req to backend
   }

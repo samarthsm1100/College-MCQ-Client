@@ -71,8 +71,11 @@ export default function AllSlotCard(slot: any) {
             <p className="text-default-500 py-2">
                 {`Created By: ${slot.slot.first_name} ${slot.slot.last_name}`}
             </p>
-            <div className="flex">
+            <div className="flex gap-4 justify-end">
                 <DeleteSlotModal/>
+                <Link href={`/ps/allSlots/${slot.slot.slot_id}`} key={slot.slot.slot_id}>
+                <Button>Leaderboard</Button>
+                </Link>
             </div>
             </CardFooter>
         </Card>

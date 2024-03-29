@@ -29,11 +29,6 @@ export default function App() {
             All Slots
           </Link>
         </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/ps/leaderboard">
-            Leaderboard
-          </Link>
-        </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">

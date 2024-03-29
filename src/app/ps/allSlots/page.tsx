@@ -81,9 +81,9 @@ const AllSlots: React.FC = () => {
           {
             slots ?
               slots.map((slot, index) => (
-                <Link href={`/ps/allSlots/${slot.slot_id}`}>
+                
                 <AllSlotCard key={slot.slot_id} slot={slot} />
-                </Link>
+               
               )) :
               <p>No Slots available</p>
 
