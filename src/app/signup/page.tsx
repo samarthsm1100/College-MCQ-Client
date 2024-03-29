@@ -2,32 +2,73 @@
 import { useState } from "react";
 import { Input, Button,Image } from "@nextui-org/react";
 import Link from "next/link"
+import toast from 'react-hot-toast';
+import instance from "@/api/axios";
+import { useRouter } from "next/navigation";
+
+interface FormData
+{
+  first_name: string;
+  last_name: string;
+  roll_no: string;
+  phone: string;
+  year: string;
+  department: string;
+  division: string;
+  email: string;
+  user_password: string;
+}
 
 const Signup: React.FC = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [rollNo, setRollNo] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
-  const [year, setYear] = useState("");
-  const [dept, setDept] = useState("");
-  const [division, setDivision] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+
+  const [formData, setFormData] = useState<FormData>({
+    first_name: '',
+    last_name: '',
+    roll_no: '',
+    phone: '',
+    year: '',
+    department: '',
+    division: '',
+    email: '',
+    user_password: ''
+  });
+
+  // const [first_name, setFirstName] = useState("");
+  // const [last_name, setLastName] = useState("");
+  // const [roll_no, setRollNo] = useState("");
+  // const [phone, setPhoneNo] = useState("");
+  // const [year, setYear] = useState("");
+  // const [department, setDept] = useState("");
+  // const [division, setDivision] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [user_password, setUserPassword] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     // Handle signup logic here (e.g., send a request to your server to create a new user)
-
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Roll No:", rollNo);
-    console.log("Phone No:", phoneNo);
-    console.log("Year:", year);
-    console.log("Department:", dept);
-    console.log("Division:", division);
-    console.log("Email:", email);
-    console.log("Password:", password);
+    try {
+      const response = await instance({
+        url: "/user/signup",
+        method: "POST",
+        data: formData
+      })
+      toast.success(response.data.message);
+      router.push("/signin"); 
+    } catch (error) {
+      console.error(error);
+      toast.error('Invalid email or password');
+    }
   };
 
   return (
@@ -44,90 +85,99 @@ const Signup: React.FC = () => {
             <div className="mb-2">
               <Input
                 type="text"
+                name="first_name"
                 placeholder="First Name"
-                value={firstName}
+                value={formData.first_name}
                 size="sm"
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="text"
+                name="last_name"
                 placeholder="Last Name"
-                value={lastName}
+                value={formData.last_name}
                 size="sm"
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="text"
+                name="roll_no"
                 placeholder="Roll No"
-                value={rollNo}
+                value={formData.roll_no}
                 size="sm"
-                onChange={(e) => setRollNo(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="text"
+                name="division"
                 placeholder="Division"
-                value={division}
+                value={formData.division}
                 size="sm"
-                onChange={(e) => setDivision(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="text"
+                name="year"
                 placeholder="Year"
-                value={year}
+                value={formData.year}
                 size="sm"
-                onChange={(e) => setYear(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="text"
+                name="department"
                 placeholder="Department"
-                value={dept}
+                value={formData.department}
                 size="sm"
-                onChange={(e) => setDept(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="tel"
+                name="phone"
                 placeholder="Phone No"
-                value={phoneNo}
+                value={formData.phone}
                 size="sm"
-                onChange={(e) => setPhoneNo(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="email"
+                name="email"
                 placeholder="Email"
-                value={email}
+                value={formData.email}
                 size="sm"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>
             <div className="mb-2">
               <Input
                 type="password"
+                name="user_password"
                 placeholder="Password"
-                value={password}
+                value={formData.user_password}
                 size="sm"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-2 rounded"
               />
             </div>

@@ -5,18 +5,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios'; // Import Axios
 import toast from 'react-hot-toast';
-
-interface FormData {
+import instance from '@/api/axios';
+interface FormData
+{
   email: string;
-  password: string;
+  user_password: string;
 }
 
 const Home: React.FC = () => {
-  const baseURL = "http://localhost:5001";
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: '',
-    password: '',
+    user_password: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,10 +30,13 @@ const Home: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${baseURL}/user/login`, formData);
+      const response = await instance({
+        url: "/user/login",
+        method: "POST",
+        data: formData
+      })
       toast.success(response.data.message);
-      router.push("/"); // Redirect the user
-      window.location.reload();
+      router.push("/"); 
     } catch (error) {
       console.error(error);
       toast.error('Invalid email or password');
@@ -62,9 +65,9 @@ const Home: React.FC = () => {
             <div className="mb-4">
               <Input
                 type="password"
-                name="password"
+                name="user_password"
                 placeholder="Password"
-                value={formData.password}
+                value={formData.user_password}
                 onChange={handleChange}
                 className="w-full p-2 rounded"
               />
