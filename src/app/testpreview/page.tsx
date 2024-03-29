@@ -76,7 +76,7 @@ const testpreview: React.FC = () => {
                                 </ol>
                                 <div>
                                     <p>Your Choice:&nbsp;{question.chosenAnswer}</p>
-                                    <p>Correct Option:&nbsp;{question.chosenAnswer} </p>
+                                    <p>Correct Option:&nbsp;{question.correctAnswer} </p>
                                 </div>
                             </div>
                         ))
