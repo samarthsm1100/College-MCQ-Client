@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { FiX, FiCheck } from "react-icons/fi";
 
-const testpreview: React.FC = () => {
+const Testpreview: React.FC = () => {
 
     useEffect(() => { }, [])
     const router = useRouter()
@@ -105,4 +105,4 @@ const testpreview: React.FC = () => {
         </div>
     );
 };
-export default testpreview;
+export default Testpreview;
