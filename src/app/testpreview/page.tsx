@@ -6,10 +6,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { FiX, FiCheck } from "react-icons/fi";
+
 const testpreview: React.FC = () => {
 
-    const navigator = useRouter();
     useEffect(() => { }, [])
+    const router = useRouter()
 
     const questions = [
         {
@@ -73,11 +74,12 @@ const testpreview: React.FC = () => {
                     questions.length > 0 ?
                         questions.map((question, ind) => (
                             <div key={ind} className='rounded-lg bg-gray-800 p-4 mt-2 mb-2'>
-                                <div className=' flex items-center justify-between text-xl font-semibold'>
-                                    <h3 className=''>
-                                        Q{question.question_number}.&nbsp; {question.title}
-                                    </h3>
-                                    <div className=' flex items-center object-cover'>{question.chosenAnswer === question.correctAnswer ? <FiCheck /> : <FiX />}</div>
+                                <div className='flex justify-between items-center '>
+                                    <h3 className='text-xl'>Q{question.question_number}.&nbsp; {question.title}</h3>
+                                    <div className=''>{question.chosenAnswer === question.correctAnswer ?
+                                        <div className='p-2 flex items-center border border-none rounded-3xl bg-green-200 text-green-600 font-semibold'>Correct&nbsp; <FiCheck width={40} height={40} /></div> :
+                                        <div className='p-2 flex items-center border border-none rounded-3xl bg-red-200 text-red-600 font-semibold'>Incorrect&nbsp; <FiX /></div>}
+                                    </div>
                                 </div>
 
                                 <ol className='list-decimal ml-12 pt-3 pb-3'>
@@ -87,16 +89,17 @@ const testpreview: React.FC = () => {
                                 </ol>
                                 <div>
                                     <p>Your Choice:&nbsp;{question.chosenAnswer}</p>
-                                    <p>Correct Option:&nbsp;{question.chosenAnswer} </p>
+                                    <p>Correct Option:&nbsp;{question.correctAnswer} </p>
                                 </div>
                             </div>
                         ))
                         :
                         <p>No questions</p>
                 }
-                <div className='flex justify-between mt-8'>
-                    <Button >Download Report</Button>
-                    <Button onClick={()=>(navigator.push('/'))}>Go to homepage</Button>
+
+                <div className="flex justify-between mt-6">
+                    <Button color="secondary" variant='solid' onClick={()=>{}}>Download Report</Button>
+                    <Button color="secondary" variant='solid' onClick={() => router.push('/')}>Go to homepage</Button>
                 </div>
             </div>
         </div>
