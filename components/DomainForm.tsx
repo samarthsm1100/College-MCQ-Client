@@ -6,6 +6,7 @@ import { storage } from '../src/firebase'; // Import the Firebase instance
 import {v4} from 'uuid';
 import { getDownloadURL, uploadBytes } from 'firebase/storage';
 import { ref } from 'firebase/storage';
+import instance from "@/api/axios"
 
 type FormData = {
     domain_name: string;
@@ -63,9 +64,19 @@ const DomainForm = () => {
 
     const { register, handleSubmit, formState: { errors } }: UseFormReturn<FormData> = useForm();
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = async(data: FormData) => {
         data.image_url = imageUrl;
         console.log(data);
+        try {
+            const response = await instance({
+              url: "/admin/dcreate",
+              method: "POST",
+              data: data
+            })
+            console.log(response);
+          } catch (error) {
+            console.error(error);
+          }
     };
 
     return (

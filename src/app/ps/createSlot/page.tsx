@@ -4,14 +4,26 @@ import { object, string, number, date, InferType } from 'yup';
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import PsNavbar from "../../../../components/PsNavbar"
+import instance from "@/api/axios"
 
 const CreateSlot: React.FC = () => {
   const router = useRouter()
 
-  const onSubmit=async (values:any,errors:any)=>{
-    // console.log(values)
+  const onSubmit= async (values:any,errors:any)=>{
+    console.log(values)
     // console.log(errors)
-    alert('New Slot created!');
+    try {
+      const response = await instance({
+        url: "/ps/slot",
+        method: "POST",
+        data: values
+      })
+      console.log(response); 
+      alert('New Slot created!');
+    } catch (error) {
+      console.error(error);
+    }
+  
     //send req to backend
   }
 
@@ -59,7 +71,7 @@ const CreateSlot: React.FC = () => {
             {
               alert("Total question count must be equal to sum of number easy, medium, hard level questions!")
             }
-            else if(end_time[0].value <= start_time[0].value)
+            else if(end_time[0].value < start_time[0].value)
             {
               alert("Start time must be smaller than end time!")
             }
@@ -171,7 +183,7 @@ const CreateSlot: React.FC = () => {
             </div>
             <div className="flex gap-8">
               <Input
-                type="time"
+                type="datetime-local"
                 name="start_time"
                 label="Start time"
                 labelPlacement="outside-left"
@@ -189,7 +201,7 @@ const CreateSlot: React.FC = () => {
                 :""}
               />
               <Input
-                type="time"
+                type="datetime-local"
                 name="end_time"
                 label="End time"
                 labelPlacement="outside-left"

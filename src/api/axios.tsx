@@ -6,7 +6,7 @@ const instance = axios.create({
     baseURL: baseUrl,
     headers: {
         'Content-Type': 'application/json', 
-        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('problem_setter_token')}`,
         'Access-Control-Allow-Origin': '*',
         'Allow-Access-Control-Origin': '*',
         'include-credentials': 'true'

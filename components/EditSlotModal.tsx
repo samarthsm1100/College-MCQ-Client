@@ -5,14 +5,25 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import { Input } from "@nextui-org/react";
 import { object, string, number, date, InferType } from 'yup';
 import { useFormik } from "formik";
-
+import instance from "@/api/axios";
 
 export default function EditSlotModal(slot: any) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onSubmit = async (values: any) => {
     console.log(values)
-    alert("Slot updated succesfully!")
+    // console.log(errors)
+    try {
+      const response = await instance({
+        url: "/ps/slot/",
+        method: "POST",
+        data: values
+      })
+      console.log(response); 
+      alert('Slot updated successfully!');
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const Schema = object().shape({
@@ -63,7 +74,7 @@ export default function EditSlotModal(slot: any) {
                     if (Number(totalQuestion[0].value) !== Number(easy[0].value) + Number(medium[0].value) + Number(hard[0].value)) {
                       alert("Total question count must be equal to sum of number easy, medium, hard level questions!")
                     }
-                    else if (end_time[0].value <= start_time[0].value) {
+                    else if (end_time[0].value < start_time[0].value) {
                       alert("Start time must be smaller than end time!")
                     }
                     else {

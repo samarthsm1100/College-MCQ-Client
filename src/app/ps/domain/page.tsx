@@ -6,7 +6,8 @@ import PsNavbar from "../../../../components/PsNavbar"
 import { useState } from "react";
 import DomainForm from "../../../../components/DomainForm";
 import PsDomainDelete from "../../../../components/PsDomainDelete";
-
+import instance from "@/api/axios";
+import { useRouter } from "next/navigation";
 const domain = [
     {name: 'C++'},
     {name: 'Java'},
@@ -23,7 +24,8 @@ const domain = [
 ]
 
 const ProblemSetter = () => {
-
+    const router = useRouter()
+    
     const [selectedDomain, setSelectedDomain] = useState({})
     const [flag, setFlag] = useState(false)
 
