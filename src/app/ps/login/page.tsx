@@ -34,8 +34,7 @@ const Login = () => {
             })
             console.log(response);
             const accessToken = response.data.token
-            localStorage.setItem('problem_setter_token',accessToken)
-            localStorage.setItem('admin_token',accessToken)
+            localStorage.setItem('token',accessToken)
             router.push("/ps/domain"); 
           } catch (error) {
             console.error(error);

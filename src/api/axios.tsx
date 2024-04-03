@@ -1,16 +1,25 @@
 import axios from 'axios';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://college-mcq.onrender.com/'; // Set your API base URL
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'; 
 
 const instance = axios.create({
     baseURL: baseUrl,
     headers: {
-        'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${localStorage.getItem('problem_setter_token')}`,
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Allow-Access-Control-Origin': '*',
         'include-credentials': 'true'
     },
+});
+
+instance.interceptors.request.use(config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+}, error => {
+    return Promise.reject(error);
 });
 
 export default instance;
