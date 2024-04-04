@@ -8,43 +8,45 @@ import DomainForm from "../../../../components/DomainForm";
 import PsDomainDelete from "../../../../components/PsDomainDelete";
 import instance from "@/api/axios";
 import { useRouter } from "next/navigation";
-const domain = [
-    {name: 'C++'},
-    {name: 'Java'},
-    {name: 'Python'},
-    {name: 'Javascript'},
-    {name: 'HTML'},
-    {name: 'CSS'},
-    {name: 'React'},
-    {name: 'Angular'},
-    {name: 'Vue'},
-    {name: 'Node'},
-    {name: 'Express'},
-    {name: 'Django'}
-]
+import { setTimeout } from "timers";
 
 const ProblemSetter = () => {
     const router = useRouter()
+
+    function useForm(init: any) {
+        const [file, setFile] = useState(init);
+        const handleFileInput = (e: any) => {
+          setFile(e.target.files[0]);
+        };
+        return {file, handleFileInput};
+    }
+
+    const {file, handleFileInput } = useForm(null);
     
     const [selectedDomain, setSelectedDomain] = useState({})
-    const [selectedFile, setSelectedFile] = useState(null)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [flag, setFlag] = useState(false)
     const [csv, setCsv] = useState(true)
 
-    const handleFileChange = (e: any) => {
-        console.log(e.target.files[0])
-        setSelectedFile(e.target.files[0])
-        setCsv(false)
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            setSelectedFile(files[0]);
+            setTimeout(() => {
+                console.log(selectedFile)
+                
+            }, 5000)
+            console.log("SelectedFile : ", files[0])
+            console.log("file handle change")
+            setCsv(false)
+        }
     }
 
     const handleFileSubmit = async (e: any) => {
-        e.preventDefault()
+        // e.preventDefault()
         const formData = new FormData();
-        if(selectedFile) formData.append("file", selectedFile)
-        else{
-            alert("No file selected")
-            return
-        }
+        await formData.append("file", e.target.files[0])
+        console.log(formData)
         try {
             const res = await instance({
                 url: '/ps/upload',
@@ -54,6 +56,7 @@ const ProblemSetter = () => {
                 },
                 data: formData
             })
+            window.location.reload()
         } catch (error) {
             console.log(error)
         }
@@ -133,9 +136,9 @@ const ProblemSetter = () => {
                             <img src={(selectedDomain as { domain_name: string, image_url: string }).image_url} alt="domainImg" className="mt-10 border-2 border-black" width={200} height={200}/>
 
                             <div className="flex flex-col gap-4 mt-6">
-                                <form method="post" onSubmit={handleFileSubmit} className="flex flex-col gap-4">
+                                <form method="post" className="flex flex-col gap-4">
                                     <label className="text-xl font-semibold text-black">Upload CSV : </label>
-                                    <input type="file" onChange={handleFileChange} className="border border-black rounded-md"/>
+                                    <input type="file" onChange={handleFileSubmit} className="border border-black rounded-md"/>
                                     <Button type="submit" disabled={csv} className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered">Add Questions</Button>
                                 </form>
                                 <PsDomainDelete domain={selectedDomain as { name: string; image_url: string; }}/>
