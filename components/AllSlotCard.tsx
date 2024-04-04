@@ -72,7 +72,7 @@ export default function AllSlotCard(slot: any) {
                 {`Created By: ${slot.slot.first_name} ${slot.slot.last_name}`}
             </p>
             <div className="flex gap-4 justify-end">
-                <DeleteSlotModal/>
+                <DeleteSlotModal slot_id={slot.slot.slot_id}/>
                 <Link href={`/ps/allSlots/${slot.slot.slot_id}`} key={slot.slot.slot_id}>
                 <Button>Leaderboard</Button>
                 </Link>

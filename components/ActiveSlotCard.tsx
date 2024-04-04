@@ -15,7 +15,8 @@ interface Slot {
     hard: Number,
     domain_name: String,
     first_name: String,
-    last_name: String
+    last_name: String,
+    class_names:String[]
 }
 
 export default function App(slot: any) {
@@ -74,7 +75,7 @@ export default function App(slot: any) {
             <div className="flex gap-4">
                 <EditSlotModal key={slot.slot.slot_id} slot={slot.slot}/>
                 
-                <DeleteSlotModal/>
+                <DeleteSlotModal slot_id={slot.slot.slot_id}/>
             </div>
             </CardFooter>
         </Card>
