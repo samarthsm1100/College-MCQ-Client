@@ -20,6 +20,24 @@ interface Slot {
 }
 
 export default function App(slot: any) {
+
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+
+    let startDateConverted = slot.slot.start_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(0, 10)
+    let startTimeConverted = slot.slot.start_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(11, 19)
+    let startFinal = `${startDateConverted} ${startTimeConverted}`
+    let endDateConverted = slot.slot.end_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(0, 10)
+    let endTimeConverted = slot.slot.end_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(11, 19)
+    let endFinal = `${endDateConverted} ${endTimeConverted}`
+
     return (
         <Card className="w-[200px]">
             <CardHeader className="flex gap-3">
@@ -60,8 +78,8 @@ export default function App(slot: any) {
                     </p>
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-md">{`Start time: ${slot.slot.start_time}`}</p>
-                    <p className="text-md">{`End time: ${slot.slot.end_time}`}</p>
+                    <p className="text-md">{`Start time: ${startFinal}`}</p>
+                    <p className="text-md">{`End time: ${endFinal}`}</p>
                     
                 </div>
             </CardBody>

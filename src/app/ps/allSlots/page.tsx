@@ -26,7 +26,7 @@ const AllSlots: React.FC = () => {
   const getSlots = async()=>{
     try {
       const res = await instance({
-        url:"/ps/getSlots/",
+        url:"/ps/getPastSlots/",
         method:"GET"
       })
       console.log(res.data)
@@ -35,6 +35,8 @@ const AllSlots: React.FC = () => {
       console.error(error)
     }
   }
+
+
   useEffect(()=>{
     getSlots()
   },[])

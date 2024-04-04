@@ -46,7 +46,7 @@ export default function App() {
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground" href="/ps/allSlots">
-            All Slots
+            Past Slots
           </Link>
         </NavbarItem>
       </NavbarContent>
