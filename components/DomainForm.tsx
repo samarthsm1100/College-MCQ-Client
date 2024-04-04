@@ -37,7 +37,7 @@ const DomainForm = () => {
             handleUpload();
             const timerId = setTimeout(() => {
                 console.log("Image upload handled after 5 seconds");
-            }, 5000);
+            }, 7000);
 
             return () => clearTimeout(timerId);
         }
@@ -74,6 +74,8 @@ const DomainForm = () => {
               data: data
             })
             console.log(response);
+            setDisable(true);
+            // window.location.reload();
           } catch (error) {
             console.error(error);
           }

@@ -27,12 +27,36 @@ const ProblemSetter = () => {
     const router = useRouter()
     
     const [selectedDomain, setSelectedDomain] = useState({})
+    const [selectedFile, setSelectedFile] = useState(null)
     const [flag, setFlag] = useState(false)
-    const [csv, setCsv] = useState(false)
+    const [csv, setCsv] = useState(true)
 
-    const handleSubmit = (e: any) => {
+    const handleFileChange = (e: any) => {
+        console.log(e.target.files[0])
+        setSelectedFile(e.target.files[0])
+        setCsv(false)
+    }
+
+    const handleFileSubmit = async (e: any) => {
         e.preventDefault()
-        console.log('Submitted')
+        const formData = new FormData();
+        if(selectedFile) formData.append("file", selectedFile)
+        else{
+            alert("No file selected")
+            return
+        }
+        try {
+            const res = await instance({
+                url: '/ps/upload',
+                method: 'POST',
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
+                data: formData
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const [domainArray, setDomainArray] = useState<{ domain_name: string, image_url: string }[]>([])
@@ -44,7 +68,6 @@ const ProblemSetter = () => {
                 method: 'GET'
             })
             setDomainArray(res.data.domains)
-            // console.log(res.data.domains)
         } catch (error) {
             console.log(error);
         }
@@ -69,7 +92,7 @@ const ProblemSetter = () => {
 
                     <div className="max-h-[30rem] overflow-y-auto">
                     
-                    {domainArray ? <ul className="divide-y text-start divide-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-white">
+                    {domainArray.length != 0 ? <ul className="divide-y text-start divide-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-white">
                     {domainArray.map((item, index) => (
                         <div className="py-4 flex items-center" key={index}>
                             <div className="text-lg font-semibold text-violet-900 ml-4 hover:cursor-pointer" onClick={() => {setSelectedDomain(item); setFlag(true)}}>
@@ -107,13 +130,13 @@ const ProblemSetter = () => {
                         :
                         <div className="flex flex-col my-16 items-center">
                             <h1 className="text-4xl font-semibold text-center text-black bg-white mx-auto p-2 rounded-md">{(selectedDomain as { domain_name: string, image_url: string }).domain_name}</h1>
-                            <img src={(selectedDomain as { domain_name: string, image_url: string }).image_url} alt="domainImg" className="mt-10" width={200} height={200}/>
+                            <img src={(selectedDomain as { domain_name: string, image_url: string }).image_url} alt="domainImg" className="mt-10 border-2 border-black" width={200} height={200}/>
 
                             <div className="flex flex-col gap-4 mt-6">
-                                <form method="post" onSubmit={handleSubmit} className="flex flex-col gap-4">
+                                <form method="post" onSubmit={handleFileSubmit} className="flex flex-col gap-4">
                                     <label className="text-xl font-semibold text-black">Upload CSV : </label>
-                                    <input type="file" className="border border-black rounded-md"/>
-                                    <Button type="submit" className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered">Add Questions</Button>
+                                    <input type="file" onChange={handleFileChange} className="border border-black rounded-md"/>
+                                    <Button type="submit" disabled={csv} className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered">Add Questions</Button>
                                 </form>
                                 <PsDomainDelete domain={selectedDomain as { name: string; image_url: string; }}/>
                             </div>

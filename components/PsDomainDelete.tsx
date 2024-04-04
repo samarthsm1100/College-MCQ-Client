@@ -8,12 +8,13 @@ export default function App({domain}: {domain: any}) {
   const handleDelete = async () => {
     try {
       const res = await instance({
-        url: '/admin/ddelete',
+        url: 'admin/ddelete',
         method: 'DELETE',
-        data: domain.domain_name
+        data: {domain_name: domain.domain_name}
       })
+      window.location.reload()
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
