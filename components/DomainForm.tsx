@@ -75,7 +75,7 @@ const DomainForm = () => {
             })
             console.log(response);
             setDisable(true);
-            // window.location.reload();
+            window.location.reload();
           } catch (error) {
             console.error(error);
           }
