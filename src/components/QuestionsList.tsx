@@ -1,25 +1,14 @@
-"use client";
-import { QuestionsContext } from "@/contexts/QuestionsContext";
-import { useContext } from "react";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
-export default function QuestionsList() {
-  const questions = useContext(QuestionsContext);
+
+export default function QuestionsList({length = 0 ,test_id}:{length:number,test_id:string}) {
+    const arr = Array.from({length}, (_, i) => i + 1);
   return (
-    <div className="h-[90vh] overflow-y-scroll w-fit px-2 bg-slate-200">
-      <ul>
-        {questions.map((question) => {
-          return (
-            <li className="relative" key={question.index}>
-              <Link href={`/tests/${question.index}`}>
-                {" "}
-                <button className="rounded-full my-3 p-2 w-full h-full px-6 text-lg border-2 border-slate-500">
-                  {question.index}
-                </button>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+    <section className="w-fit flex flex-col gap-8">{
+        arr.map((i)=>{
+            return(
+            <Link key={i} href={`/tests/${test_id}/${i}`}><Button >{i}</Button></Link>
+        )})}
+    </section>
+  )
 }
