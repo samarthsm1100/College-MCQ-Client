@@ -4,6 +4,8 @@ import { Button, Input, Link } from "@nextui-org/react"
 import {useForm, UseFormReturn } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup'
+import instance from "@/api/axios"
+import { useRouter } from "next/navigation";
 
 type FormData = {
     email: string
@@ -16,13 +18,27 @@ const schema = yup.object().shape({
 })
 
 const Login = () => {
-    
+    const router = useRouter();
+
     const { register, handleSubmit, formState: { errors } }: UseFormReturn<FormData> = useForm({
         resolver: yupResolver(schema)
     });
     
-    const onSubmit = (data: FormData) => {
+    const onSubmit = async(data: FormData) => {
         console.log(data);
+        try {
+            const response = await instance({
+              url: "/ps/login",
+              method: "POST",
+              data: data
+            })
+            console.log(response);
+            const accessToken = response.data.token
+            localStorage.setItem('token',accessToken)
+            router.push("/ps/domain"); 
+          } catch (error) {
+            console.error(error);
+          }
     }
 
     return (

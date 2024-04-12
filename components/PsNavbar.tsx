@@ -1,7 +1,27 @@
+'use client'
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import instance from "@/api/axios";
+import { useRouter } from "next/navigation";
 
 export default function App() {
+
+  const router = useRouter()
+
+  const handleLogout = async() => {
+    try {
+      await instance({
+        url: '/ps/logout',
+        method: 'DELETE'
+      })
+      localStorage.removeItem("token");
+      router.push('/ps/login')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   return (
     <Navbar isBordered isBlurred={false} className="mb-2">
       <NavbarBrand>
@@ -26,7 +46,7 @@ export default function App() {
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground" href="/ps/allSlots">
-            All Slots
+            Past Slots
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -35,7 +55,7 @@ export default function App() {
           <Link href="#">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="secondary" href="#" variant="flat" className="text-lg font-semibold">
+          <Button as={Link} color="secondary" href="#" variant="flat" className="text-lg font-semibold" onClick={handleLogout}>
             Logout
           </Button>
         </NavbarItem>

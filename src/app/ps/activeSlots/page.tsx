@@ -1,6 +1,8 @@
+"use client"
 import ActiveSlotCard from "../../../../components/ActiveSlotCard"
 import PsNavbar from "../../../../components/PsNavbar"
-
+import instance from "@/api/axios"
+import { useEffect,useState } from "react"
 interface Slot{
   slot_id:Number,
   slot_name:String,
@@ -12,63 +14,39 @@ interface Slot{
   hard:Number,
   domain_name:String,
   first_name:String,
-  last_name:String
+  last_name:String,
+  class_names:String[]
 }
 const ActiveSlots:React.FC = () => {
-  const slots:Slot[] = [
-    {
-      slot_id:1,
-      slot_name:"DSA Mock Test",
-      start_time:"10:00",
-      end_time:"13:00",
-      total_question:30,
-      easy:10,
-      medium:10,
-      hard:10,
-      domain_name:"DSA",
-      first_name:"G.B.",
-      last_name:"Potadar"
-    },
-    {
-      slot_id:2,
-      slot_name:"MPL Mock Test",
-      start_time:"10:00",
-      end_time:"13:00",
-      total_question:30,
-      easy:10,
-      medium:10,
-      hard:10,
-      domain_name:"MP",
-      first_name:"Sheetal",
-      last_name:"Girme"
-    },
-    {
-      slot_id:3,
-      slot_name:"WT Mock Test",
-      start_time:"10:00",
-      end_time:"13:00",
-      total_question:30,
-      easy:10,
-      medium:10,
-      hard:10,
-      domain_name:"WT",
-      first_name:"Pooja",
-      last_name:"Kohok"
-    },
-    {
-      slot_id:4,
-      slot_name:"WT Mock Test",
-      start_time:"10:00",
-      end_time:"13:00",
-      total_question:30,
-      easy:10,
-      medium:10,
-      hard:10,
-      domain_name:"WT",
-      first_name:"Pooja",
-      last_name:"Kohok"
+
+  const [slots,setSlots] = useState()
+
+  const getSlots = async()=>{
+    try {
+      const res = await instance({
+        url:"/ps/getActiveslots/",
+        method:"GET"
+      })
+      console.log(res.data)
+      setSlots(res.data.slots)
+    } catch (error) {
+      console.error(error)
     }
-  ];
+  }
+  useEffect(()=>{
+    getSlots()
+  },[])
+
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
   return (
     <div>
       <PsNavbar/>
@@ -81,7 +59,9 @@ const ActiveSlots:React.FC = () => {
           slots.map((slot,index)=>(
             <ActiveSlotCard key={slot.slot_id} slot={slot}/>
           )) :
-          <p>No Slots available</p>
+          <div className="flex justify-center items-center  col-span-3 min-h-[22rem] text-2xl font-semibold">
+                <p>No Slots available</p>
+              </div>
         }
       </div>
     </div>

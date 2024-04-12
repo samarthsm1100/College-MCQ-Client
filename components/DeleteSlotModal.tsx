@@ -2,12 +2,23 @@
 
 import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import instance from "@/api/axios";
+import { useRouter } from "next/navigation";
 
-export default function DeleteSlotModal() {
+export default function DeleteSlotModal({slot_id}:any) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
-  const handleDelete =()=>{
-    
+  const router = useRouter()
+  const handleDelete =async ()=>{
+    try {
+      const res = await instance({
+        url:`/ps/slot/${slot_id}`,
+        method:"DELETE"
+      })
+      router.push("/ps/activeSlots")
+      console.log("slot deleted")
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
     <>

@@ -1,66 +1,87 @@
+"use client"
 import React, { useState, useEffect } from 'react';
 import { Input, Button, Image, Divider } from '@nextui-org/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import instance from '@/api/axios';
 
 
+const result = [
+  {
+    first_name: "Kedar",
+    last_name: "Pawar",
+    roll_no: 31160,
+    division: "TE1",
+    score: 75
+  },
+  {
+    first_name: "Kedar",
+    last_name: "Pawar",
+    roll_no: 31161,
+    division: "TE1",
+    score: 75
+  },
+  {
+    first_name: "Kedar",
+    last_name: "Pawar",
+    roll_no: 31162,
+    division: "TE1",
+    score: 75
+  },
+  {
+    first_name: "Kedar",
+    last_name: "Pawar",
+    roll_no: 31163,
+    division: "TE1",
+    score: 75
+  }
+]
 
-async function getResult(id:any){
-    // const res = await fetch(`http://localhost:4000/tickets/${id}`,{
-    //     next:{
-    //         revalidate:60
-    //     }
-    // })
-    //logic if ticket not exists
-    // if(!res.ok){
-    //     notFound();
-    // }
-    
-    // return res.json();
+const leaderboard: React.FC = ({params}:any) => {
+  const [slotInfo,setSlotInfo] = useState({});
+  const [result,setResult] = useState([]);
 
-    const result = [
-        {
-          first_name: "Kedar",
-          last_name: "Pawar",
-          roll_no: 31160,
-          division: "TE1",
-          score: 75
-        },
-        {
-          first_name: "Kedar",
-          last_name: "Pawar",
-          roll_no: 31161,
-          division: "TE1",
-          score: 75
-        },
-        {
-          first_name: "Kedar",
-          last_name: "Pawar",
-          roll_no: 31162,
-          division: "TE1",
-          score: 75
-        },
-        {
-          first_name: "Kedar",
-          last_name: "Pawar",
-          roll_no: 31163,
-          division: "TE1",
-          score: 75
-        }
-      ]
-      return result;
-}
+  async function getResult(id:any){
+    try {
+      const response = await instance({
+        url: `/ps/leaderboard/${id}`,
+        method: "GET"
+      })
+      console.log(response);
+      setResult(response.data.leaderboard)
 
-const leaderboard: React.FC = async({params}:any) => {
-    const result = await getResult(params.id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  async function getSlotInfo(id:any){
+    try {
+      const res = await instance({
+        url:`/ps/getSlot/${id}`,
+        method:"GET"
+      })
+  
+      console.log(res)
+      setSlotInfo(res.data.slots[0])
+  
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+    useEffect(()=>{
+      getResult(params.id);
+      getSlotInfo(params.id);
+    },[])
 
   return (
     <>
       <div className='flex justify-center items-center my-12'>
         <div className='mx-32  w-full min-h-[36rem] border rounded-lg border-purple-400 border-2 p-8 '>
         <div className='flex justify-between text-2xl  py-4'>
-                <div className='font-semibold'>Slot Name</div>
+                <div className='font-semibold'>{slotInfo.slot_name}</div>
                 <div className='text-default-500'>SlotId:{params.id}</div>
         </div>
           <div className='grid grid-cols-5 bg-secondary px-4 rounded-lg text-xl font-semibold'>
@@ -74,8 +95,8 @@ const leaderboard: React.FC = async({params}:any) => {
             result.length <= 0 ?
               <p>Nothing to show</p> :
               result.map((row, ind) => (
-                <>
-                <div className='grid grid-cols-5 px-4 my-2 text-xl' key={ind}>
+                <div key={ind}>
+                <div className='grid grid-cols-5 px-4 my-2 text-xl'>
                   <div>{ind + 1}</div>
                   <div>{row.first_name}&nbsp;{row.last_name}</div>
                   <div className='flex justify-center'>{row.roll_no}</div>
@@ -83,11 +104,16 @@ const leaderboard: React.FC = async({params}:any) => {
                   <div className='flex justify-end'>{row.score}</div>
                 </div>
                 <Divider/>
-                </>
+                </div>
               ))
           }
-
+          <div className='flex justify-end my-4 '>
+          <Link href={`/ps/allSlots/`}>
+                <Button>Back</Button>
+          </Link>
+          </div>
         </div>
+        
       </div>
     </>
   )

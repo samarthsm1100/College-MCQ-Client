@@ -3,6 +3,8 @@
 import Link from "next/link"
 import AllSlotCard from "../../../../components/AllSlotCard"
 import PsNavbar from "../../../../components/PsNavbar"
+import instance from "@/api/axios"
+import {useState,useEffect} from 'react'
 
 interface Slot {
   slot_id: Number,
@@ -18,60 +20,26 @@ interface Slot {
   last_name: String
 }
 const AllSlots: React.FC = () => {
-  const slots: Slot[] = [
-    {
-      slot_id: 1,
-      slot_name: "DSA Mock Test",
-      start_time: "10:00",
-      end_time: "13:00",
-      total_question: 30,
-      easy: 10,
-      medium: 10,
-      hard: 10,
-      domain_name: "DSA",
-      first_name: "G.B.",
-      last_name: "Potadar"
-    },
-    {
-      slot_id: 2,
-      slot_name: "MPL Mock Test",
-      start_time: "10:00",
-      end_time: "13:00",
-      total_question: 30,
-      easy: 10,
-      medium: 10,
-      hard: 10,
-      domain_name: "MP",
-      first_name: "Sheetal",
-      last_name: "Girme"
-    },
-    {
-      slot_id: 3,
-      slot_name: "WT Mock Test",
-      start_time: "10:00",
-      end_time: "13:00",
-      total_question: 30,
-      easy: 10,
-      medium: 10,
-      hard: 10,
-      domain_name: "WT",
-      first_name: "Pooja",
-      last_name: "Kohok"
-    },
-    {
-      slot_id: 4,
-      slot_name: "WT Mock Test",
-      start_time: "10:00",
-      end_time: "13:00",
-      total_question: 30,
-      easy: 10,
-      medium: 10,
-      hard: 10,
-      domain_name: "WT",
-      first_name: "Pooja",
-      last_name: "Kohok"
+
+  const [slots,setSlots] = useState()
+
+  const getSlots = async()=>{
+    try {
+      const res = await instance({
+        url:"/ps/getPastSlots/",
+        method:"GET"
+      })
+      console.log(res.data)
+      setSlots(res.data.slots)
+    } catch (error) {
+      console.error(error)
     }
-  ];
+  }
+
+
+  useEffect(()=>{
+    getSlots()
+  },[])
   return (
     <div>
       <PsNavbar/>
@@ -85,7 +53,9 @@ const AllSlots: React.FC = () => {
                 <AllSlotCard key={slot.slot_id} slot={slot} />
                
               )) :
-              <p>No Slots available</p>
+              <div className="flex justify-center items-center  col-span-3 min-h-[22rem] text-2xl font-semibold">
+                <p>No Slots available</p>
+              </div>
 
           }
         </div>
