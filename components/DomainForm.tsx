@@ -83,12 +83,12 @@ const DomainForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 border-2 border-black rounded-md p-8">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 border-2 border-purple-400 rounded-md p-8">
                 <label className="font-semibold text-xl text-black px-4">Domain Name</label>
-                <input className="bg-white text-black w-4/5 mx-auto rounded-md h-8 px-2 font-semibold" type="text" {...register("domain_name")} />
+                <input className="bg-white border border-purple-400 text-black w-4/5 mx-auto rounded-md h-8 px-2 font-semibold" type="text" {...register("domain_name")} />
                 <p className="text-red-700">{errors.domain_name?.message}</p>
                 <label className="font-semibold text-xl text-black px-4">Domain Image</label>
-                <input className="bg-white text-black w-4/5 mx-auto" type="file" onChange={handleChange} />
+                <input className="bg-white text-black border border-purple-400 w-4/5 mx-auto" type="file" onChange={handleChange} />
                 <p className="text-red-700">{errors.image_url?.message}</p>
                 <Button className="w-2/5 mx-auto mt-4 font-semibold text-lg bg-purple-800 hover:cursor-pointer hover:bg-white hover:text-purple-700" variant="shadow" isDisabled={disable} type="submit">Submit</Button>
             </form>

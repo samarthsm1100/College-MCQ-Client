@@ -51,7 +51,7 @@ const Home: React.FC = () => {
         </div>
         <div className="p-8 w-1/2 h-full shadow-md rounded-lg">
           <h2 className="text-2xl font-semibold mb-4 text-center">Welcome</h2>
-          <form >
+          <form  className="space-y-4">
             <div className="mb-4">
               <Input
                 type="email"
@@ -60,6 +60,7 @@ const Home: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full p-2 rounded"
+                
               />
             </div>
             <div className="mb-4">

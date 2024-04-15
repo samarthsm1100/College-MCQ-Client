@@ -34,20 +34,20 @@ const ProblemSetter = () => {
 
   return (
 
-    <div className=" w-full flex m-0 p-0 bg-slate-200">
-        <div className="h-full fixed w-full bg-violet-300">
+    <div className=" w-full flex m-0 p-0 bg-white">
+        <div className="h-full fixed w-full bg-white">
             <PsNavbar />
 
             <div className="grid grid-cols-2 gap-4 h-full pb-24 px-4">
 
                 {/* Domain Controllers */}
-                <div className="p-2 h-full bg-violet-400 text-center col-span-1">
+                <div className="p-2 h-full bg-white text-center col-span-1 border-r-4 border-purple-400">
                     <h2 className="font-bold text-xl text-black">Domain Controller</h2>
                     <hr className="my-2"/>
 
                     <div className="max-h-[30rem] overflow-y-auto">
                     
-                    {domainArray.length != 0 ? <ul className="divide-y text-start divide-gray-200 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-white">
+                    {domainArray.length != 0 ? <ul className="divide-y-2 text-start divide-purple-400 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-white">
                     {domainArray.map((item, index) => (
                         <div className="py-4 flex items-center" key={index}>
                             <div className="text-lg font-semibold text-violet-900 ml-4 hover:cursor-pointer" onClick={() => {setSelectedDomain(item); setFlag(true)}}>
@@ -64,7 +64,7 @@ const ProblemSetter = () => {
                     }
                     </div>
 
-                    <hr className="my-2"/>
+                    <hr  className="my-2 text-purple-400" />
 
                     <div className="flex justify-center my-4 pt-2">
                         <Button className="font-semibold text-lg bg-purple-800 hover:cursor-pointer hover:bg-white hover:text-purple-700" variant="shadow" 
@@ -74,7 +74,7 @@ const ProblemSetter = () => {
 
                 </div>
 
-                <div className="p-2 bg-violet-400 w-full col-span-1">
+                <div className="p-2 bg-white w-full col-span-1">
                     {
                         flag === false ? 
                         (
@@ -85,7 +85,7 @@ const ProblemSetter = () => {
                         :
                         <div className="flex flex-col my-16 items-center">
                             <h1 className="text-4xl font-semibold text-center text-black bg-white mx-auto p-2 rounded-md">{(selectedDomain as { domain_name: string, image_url: string }).domain_name}</h1>
-                            <img src={(selectedDomain as { domain_name: string, image_url: string }).image_url} alt="domainImg" className="mt-10 border-2 border-black" width={200} height={200}/>
+                            <img src={(selectedDomain as { domain_name: string, image_url: string }).image_url} alt="domainImg" className="mt-10 border-2 border-purple-400" width={200} height={200}/>
 
                             <div className="flex flex-col gap-4 mt-6">
                                 <CSVForm domain={selectedDomain} />

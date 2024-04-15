@@ -102,9 +102,9 @@ const CreateSlot: React.FC = () => {
   ,[])
   return (
     
-    <>
+    <div className="bg-white">
       <PsNavbar />
-      <div className="flex justify-center items-center my-24">
+      <div className="flex justify-center items-center my-24 ">
         <div className="border rounded-xl p-6 border-purple-400">
           <form className="" onSubmit={(e) => {
             e.preventDefault()
@@ -323,7 +323,7 @@ const CreateSlot: React.FC = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 export default CreateSlot;
