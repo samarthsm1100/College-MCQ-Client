@@ -1,13 +1,12 @@
 "use client";
-import { useState } from 'react';
-import { Input, Button, Image } from '@nextui-org/react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import axios from 'axios'; // Import Axios
-import toast from 'react-hot-toast';
-import instance from '@/api/axios';
-interface FormData
-{
+import { useState } from "react";
+import { Input, Button, Image } from "@nextui-org/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios"; // Import Axios
+import toast from "react-hot-toast";
+import instance from "@/api/axios";
+interface FormData {
   email: string;
   user_password: string;
 }
@@ -15,15 +14,15 @@ interface FormData
 const Home: React.FC = () => {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
-    email: '',
-    user_password: '',
+    email: "",
+    user_password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -33,25 +32,33 @@ const Home: React.FC = () => {
       const response = await instance({
         url: "/user/login",
         method: "POST",
-        data: formData
-      })
+        data: formData,
+      });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("division", response.data.user.division);
+      localStorage.setItem("user_id", response.data.user.user_id);
       toast.success(response.data.message);
-      router.push("/"); 
+      router.push("/");
     } catch (error) {
       console.error(error);
-      toast.error('Invalid email or password');
+      toast.error("Invalid email or password");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen text-black">
       <div className="flex h-auto w-4/6 justify-center items-center space-y-4 shadow-md ring-2 ring-purple-600">
         <div className="space-x-8 w-1/2 h-full shadow-md overflow-hidden">
-          <Image src="/quiz.jpg" removeWrapper className="h-full object-cover rounded-none" alt="temp" />
+          <Image
+            src="/quiz.jpg"
+            removeWrapper
+            className="h-full object-cover rounded-none"
+            alt="temp"
+          />
         </div>
         <div className="p-8 w-1/2 h-full shadow-md rounded-lg">
           <h2 className="text-2xl font-semibold mb-4 text-center">Welcome</h2>
-          <form  className="space-y-4">
+          <form className="space-y-4">
             <div className="mb-4">
               <Input
                 type="email"
@@ -60,7 +67,6 @@ const Home: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full p-2 rounded"
-                
               />
             </div>
             <div className="mb-4">
@@ -78,7 +84,7 @@ const Home: React.FC = () => {
                 type="submit"
                 variant="ghost"
                 color="secondary"
-                className="text-white px-4 py-2 rounded font-medium"
+                className="text-black px-4 py-2 rounded font-medium"
                 onClick={handleSubmit}
               >
                 Sign In
@@ -87,7 +93,7 @@ const Home: React.FC = () => {
           </form>
           <div className="mt-4 text-center">
             <p className="text-gray-500">
-              Dont have an account yet?{' '}
+              Dont have an account yet?{" "}
               <Link href="./signup">
                 <span className="text-purple-600 cursor-pointer">Sign Up</span>
               </Link>
