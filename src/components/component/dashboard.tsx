@@ -100,7 +100,7 @@ export function Dashboard() {
           </Link>
         </CardHeader>
         {UpcomingTestdata.map((test,index) => (
-          <UTest key={index} title={test.slot_name} time={test.start_time} />
+          <UTest key={index} title={test.slot_name} time={test.start_time} id={test.slot_id}/>
         ))}
 
       </Card>
@@ -180,7 +180,7 @@ function ArrowRightIcon(
   );
 }
 
-function UTest({ title, time }) {
+function UTest({ title, time,id }) {
   return (
     <CardContent className="flex items-center justify-between flex-col gap-6 md:flex-row md:items-start md:gap-10">
       <div className="grid gap-2">
@@ -188,7 +188,7 @@ function UTest({ title, time }) {
         <div className="text-gray-500 dark:text-gray-400">{time}</div>
       </div>
       <div className="flex items-end gap-4">
-        <Button size="lg" className="bg-purple-600 rounded-sm text-white" >Start Test</Button>
+        <Link href={`/tests/${id}`}><Button size="lg" className="bg-purple-600 rounded-sm text-white" >Start Test</Button></Link>
       </div>
     </CardContent>
   );

@@ -4,17 +4,40 @@ import QuestionsList from "@/components/QuestionsList";
 import { questions } from "../../../../data/questions";
 import Timer from "@/components/Timer";
 import { Button } from "@nextui-org/react";
-// import { useRouter } from "next/navigation";
-// import { useResults } from "@/contexts/ResultsContext";
+import { FormEventHandler, MouseEventHandler, useEffect, useState } from "react";
+import axios from  '../../../api/axios'
 
 export default function Layout({children,params}:{children:React.ReactNode,params:{test_id:string}}) {
-
+  // localStorage.setItem('questions',JSON.stringify(questions));
+  const [us,setUs] = useState(0);
   const handleSubmit = async () => {
-    localStorage.removeItem('results');
-    window.location.href = '/';
-    // localStorage.setItem('isInitialized',JSON.stringify(false));
+    await axios({url:'/question/endTest',data:{
+      "user_slot_id":us,
+      "user_id":localStorage.getItem('user_id'),
+      "slot_id":params.test_id
+    },
+    method:'POST'
+  }).then(res=>{
+    console.log(res.data)
   }
-  
+  ).catch(err=>{console.error(err)})
+  }
+  useEffect(()=>{
+    async function getQuestions(){
+      await axios({url:'/question/startMcq',data:{
+        "user_id":localStorage.getItem('user_id'),
+        "slot_id":params.test_id
+      },
+      method:'POST'})
+      .then(res=>{
+        localStorage.setItem('questions',JSON.stringify(res.data.questions));
+        setUs(res.data.user_slot_id);
+      })
+      .catch(err=>{console.error(err)})
+    }
+    getQuestions()
+  },[params.test_id])
+
   return (
     <>
         <div>
@@ -25,12 +48,9 @@ export default function Layout({children,params}:{children:React.ReactNode,param
             <Button color="success" className="font-semibold text-white text-md" onClick={handleSubmit}>Submit</Button>
             </div>
           </nav>
-          <section className="flex ">
-            <div className="overflow-y-scroll h-[90vh] px-4">
-            <QuestionsList length={questions.length} test_id={params.test_id}/>
-            </div>
-            <span className="flex-grow relative">{children}</span>
-          </section>
+            <span className="flex-grow relative">
+                {children}
+            </span>
         </div>
     </>
   )
