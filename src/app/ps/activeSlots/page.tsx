@@ -50,7 +50,7 @@ const ActiveSlots:React.FC = () => {
   return (
     <div>
       <PsNavbar/>
-      <div className="mx-16 my-12">
+      <div className="mx-16 my-8">
       
       <h2 className="font-bold text-2xl py-4">Active Slots</h2>
       <div className="grid grid-cols-3 gap-6">

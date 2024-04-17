@@ -90,7 +90,7 @@ const DomainForm = () => {
                 <label className="font-semibold text-xl text-black px-4">Domain Image</label>
                 <input className="bg-white text-black border border-purple-400 w-4/5 mx-auto" type="file" onChange={handleChange} />
                 <p className="text-red-700">{errors.image_url?.message}</p>
-                <Button className="w-2/5 mx-auto mt-4 font-semibold text-lg bg-purple-800 hover:cursor-pointer hover:bg-white hover:text-purple-700" variant="shadow" isDisabled={disable} type="submit">Submit</Button>
+                <Button className="w-2/5 mx-auto mt-4 font-semibold text-lg bg-purple-400 hover:cursor-pointer hover:bg-white hover:text-purple-700" variant="shadow" isDisabled={disable} type="submit">Submit</Button>
             </form>
         </div>
     );

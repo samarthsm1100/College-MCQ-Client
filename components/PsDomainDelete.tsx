@@ -20,7 +20,7 @@ export default function App({domain}: {domain: any}) {
 
   return (
     <>
-      <Button className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered" onPress={onOpen}>Delete Domain</Button>
+      <Button className="font-semibold text-lg bg-purple-400 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700" variant="bordered" onPress={onOpen}>Delete Domain</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (

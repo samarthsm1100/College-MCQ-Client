@@ -42,8 +42,9 @@ const Login = () => {
     }
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:w-1/3 gap-4 border p-8 rounded-lg">
+        <div className="flex flex-col items-center justify-center h-screen">
+            <div className="text-3xl mb-8">Problem Setter Login</div>
+            <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 flex flex-col md:w-1/3 gap-4 border p-8 rounded-lg">
                 <p className="mx-auto text-xl">LOGIN</p>
                 <Input variant="underlined" type="email" label="Email" placeholder="Enter Your Email" {...register("email")} />
                 <p className="text-red-500 text-sm">{errors.email?.message}</p>
