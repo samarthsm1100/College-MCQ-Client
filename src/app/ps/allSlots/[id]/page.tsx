@@ -79,7 +79,7 @@ const leaderboard: React.FC = ({params}:any) => {
   return (
     <>
       <div className='flex justify-center items-center my-12'>
-        <div className='mx-32  w-full min-h-[36rem] border rounded-lg border-purple-400 border-2 p-8 '>
+        <div className='mx-32  w-full min-h-[36rem] border rounded-lg border-purple-400 border-2 p-8 relative'>
         <div className='flex justify-between text-2xl  py-4'>
                 <div className='font-semibold'>{slotInfo.slot_name}</div>
                 <div className='text-default-500'>SlotId:{params.id}</div>
@@ -93,7 +93,9 @@ const leaderboard: React.FC = ({params}:any) => {
           </div>
           {
             result.length <= 0 ?
-              <p>Nothing to show</p> :
+              <div className='flex justify-center items-center min-h-[22rem] text-2xl font-semibold'>
+                <p>Nothing to show</p>
+              </div> :
               result.map((row, ind) => (
                 <div key={ind}>
                 <div className='grid grid-cols-5 px-4 my-2 text-xl'>
@@ -107,7 +109,7 @@ const leaderboard: React.FC = ({params}:any) => {
                 </div>
               ))
           }
-          <div className='flex justify-end my-4 '>
+          <div className='flex justify-end my-4 absolute bottom-0'>
           <Link href={`/ps/allSlots/`}>
                 <Button>Back</Button>
           </Link>
