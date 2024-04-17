@@ -45,8 +45,9 @@ const Signup = () => {
     }
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:w-1/3 gap-4 border p-8 rounded-lg">
+        <div className="flex flex-col items-center justify-center h-screen">
+            <div className="text-3xl mb-8">Problem Setter Signup</div>
+            <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 flex flex-col md:w-1/3 gap-4 border p-8 rounded-lg">
                 <p className="mx-auto text-xl">SIGN UP</p>
                 <Input variant="underlined" type="text" label="First Name" placeholder="Enter Your First Name" {...register("first_name")} />
                 <p className="text-red-500 text-sm">{errors.first_name?.message}</p>

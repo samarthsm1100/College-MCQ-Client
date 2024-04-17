@@ -79,12 +79,12 @@ const leaderboard: React.FC = ({params}:any) => {
   return (
     <>
       <div className='flex justify-center items-center my-12'>
-        <div className='mx-32  w-full min-h-[36rem] border rounded-lg border-purple-400 border-2 p-8 relative'>
+        <div className='mx-32 w-full min-h-[36rem] rounded-lg border-purple-400 border-2 p-8 relative'>
         <div className='flex justify-between text-2xl  py-4'>
                 <div className='font-semibold'>{slotInfo.slot_name}</div>
                 <div className='text-default-500'>SlotId:{params.id}</div>
         </div>
-          <div className='grid grid-cols-5 bg-secondary px-4 rounded-lg text-xl font-semibold'>
+          <div className='grid grid-cols-5 bg-purple-400 px-4 rounded-lg text-xl font-semibold'>
             <div>Rank</div>
             <div>Name</div>
             <div className='flex justify-center'>Roll No.</div>

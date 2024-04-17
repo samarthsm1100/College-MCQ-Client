@@ -43,8 +43,8 @@ const AllSlots: React.FC = () => {
   return (
     <div>
       <PsNavbar/>
-      <div className="mx-16 my-12">
-        <h2 className="font-bold text-2xl py-4">All Slots</h2>
+      <div className="mx-16 my-8">
+        <h2 className="font-bold text-2xl py-4">Past Slots</h2>
         <div className="grid grid-cols-3 gap-6">
           {
             slots ?

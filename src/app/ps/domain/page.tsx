@@ -8,8 +8,13 @@ import DomainForm from "../../../../components/DomainForm";
 import PsDomainDelete from "../../../../components/PsDomainDelete";
 import instance from "@/api/axios";
 import CSVForm from "../../../../components/CSVForm";
+import { useRouter } from "next/navigation";
+import { set } from "react-hook-form";
 
 const ProblemSetter = () => {
+
+    const token = localStorage.getItem('token')
+    if(!token) window.location.href = '/ps/login'
         
     const [selectedDomain, setSelectedDomain] = useState({})
     const [flag, setFlag] = useState(false)
@@ -49,11 +54,12 @@ const ProblemSetter = () => {
                     
                     {domainArray.length != 0 ? <ul className="divide-y-2 text-start divide-purple-400 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-white">
                     {domainArray.map((item, index) => (
-                        <div className="py-4 flex items-center" key={index}>
+                        <div className="py-4 flex items-center justify-between" key={index}>
                             <div className="text-lg font-semibold text-violet-900 ml-4 hover:cursor-pointer" onClick={() => {setSelectedDomain(item); setFlag(true)}}>
                                 <span className="rounded-full bg-white p-1 text-center mr-4">{index+1}&nbsp;</span>
                                 {item.domain_name}
                             </div>
+                            <Button onClick={() => {setSelectedDomain(item); setFlag(true)}} className="bg-purple-300">Edit</Button>
                         </div>
                     ))}
                     </ul> 
@@ -67,7 +73,7 @@ const ProblemSetter = () => {
                     <hr  className="my-2 text-purple-400" />
 
                     <div className="flex justify-center my-4 pt-2">
-                        <Button className="font-semibold text-lg bg-purple-800 hover:cursor-pointer hover:bg-white hover:text-purple-700" variant="shadow" 
+                        <Button className="font-semibold text-lg bg-purple-400 hover:cursor-pointer hover:bg-white hover:text-purple-700" variant="shadow" 
                         onClick={() =>setFlag(false)} 
                         >Create Domain</Button>
                     </div>

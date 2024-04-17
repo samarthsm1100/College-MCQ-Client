@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 export default function App() {
 
   const router = useRouter()
+  
+  const token = localStorage.getItem('token')
+  if(!token) window.location.href = '/ps/login'
 
   const handleLogout = async() => {
     try {
@@ -23,10 +26,10 @@ export default function App() {
 
 
   return (
-    <Navbar isBordered isBlurred={false} className="mb-2">
+    <Navbar isBordered isBlurred={false} className="mb-2 bg-violet-100">
       <NavbarBrand>
         {/* <AcmeLogo /> */}
-        <p className="font-bold text-inherit">MCQ Problem Setter</p>
+        <p className="font-bold text-inherit text-xl">MCQ Problem Setter</p>
       </NavbarBrand>
       <NavbarContent className="sm:flex gap-4" justify="center">
         <NavbarItem>

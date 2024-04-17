@@ -42,7 +42,7 @@ const CSVForm = ({domain}: any) => {
       />
       <Button
         type="submit"
-        className="font-semibold text-lg bg-purple-800 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700"
+        className="font-semibold text-lg bg-purple-400 border border-black hover:bg-white hover:cursor-pointer hover:text-purple-700"
         variant="bordered"
       >
         Add Questions

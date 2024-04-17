@@ -11,6 +11,7 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 
 const CreateSlot: React.FC = () => {
+
   const router = useRouter();
   const [classes, setClasses] = useState([]);
   const [year, setYear] = useState("");
@@ -99,7 +100,7 @@ const CreateSlot: React.FC = () => {
   return (
     <div className="bg-white">
       <PsNavbar />
-      <div className="flex justify-center items-center my-24 ">
+      <div className="flex justify-center items-center mb-24 mt-8">
         <div className="border rounded-xl p-6 border-purple-400">
           <form
             className=""
