@@ -18,7 +18,13 @@ interface Slot {
     last_name: String
 }
 
+
 export default function AllSlotCard(slot: any) {
+    
+    function convertUTCDateToLocalDate(date: any) {
+        var newDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
+        return newDate;   
+    }
 
     const formatter = new Intl.DateTimeFormat('en-US', {
         timeZone: 'Asia/Kolkata',
@@ -30,12 +36,17 @@ export default function AllSlotCard(slot: any) {
         second: '2-digit'
       });
 
+
     let startDateConverted = slot.slot.start_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(0, 10)
     let startTimeConverted = slot.slot.start_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(11, 19)
     let startFinal = `${startDateConverted} ${startTimeConverted}`
     let endDateConverted = slot.slot.end_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(0, 10)
     let endTimeConverted = slot.slot.end_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(11, 19)
     let endFinal = `${endDateConverted} ${endTimeConverted}`
+
+      startFinal = formatter.format(convertUTCDateToLocalDate(new Date(startFinal)))
+        endFinal = formatter.format(convertUTCDateToLocalDate(new Date(endFinal)))
+
     return (
         <Card className="w-[200px]">
             <CardHeader className="flex gap-3">

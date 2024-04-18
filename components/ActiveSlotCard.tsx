@@ -31,12 +31,20 @@ export default function App(slot: any) {
         second: '2-digit'
       });
 
+      function convertUTCDateToLocalDate(date: any) {
+        var newDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
+        return newDate;   
+    }
+
     let startDateConverted = slot.slot.start_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(0, 10)
     let startTimeConverted = slot.slot.start_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(11, 19)
     let startFinal = `${startDateConverted} ${startTimeConverted}`
     let endDateConverted = slot.slot.end_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(0, 10)
     let endTimeConverted = slot.slot.end_time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).substring(11, 19)
     let endFinal = `${endDateConverted} ${endTimeConverted}`
+
+    startFinal = formatter.format(convertUTCDateToLocalDate(new Date(startFinal)))
+    endFinal = formatter.format(convertUTCDateToLocalDate(new Date(endFinal)))
 
     return (
         <Card className="w-[200px]">
