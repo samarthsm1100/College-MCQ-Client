@@ -29,6 +29,8 @@ export default function QuestionsPage() {
   }, []);
 
     async function saveQuestion(){
+      setIsSubmit((prev) =>
+      prev.map((val, i) => (i === index - 1 ? true : val)))
       console.log(radio[index-1])
     axios({url:'/question/markA',method:'POST',
       data:{
