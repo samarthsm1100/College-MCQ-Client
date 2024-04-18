@@ -44,6 +44,21 @@ export function Dashboard() {
   const [OverallPerformancedata, setOverallPerformancedata] = useState({});
   const [test, setTest] = useState(false); // [test, setTest
 
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  function convertUTCDateToLocalDate(date: any) {
+    var newDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
+    return newDate;   
+}
+
   const getUpcomingTest = async () => {
     try {
       const res = await instance({
@@ -102,7 +117,7 @@ export function Dashboard() {
           </Link>
         </CardHeader>
         {UpcomingTestdata.map((test,index) => (
-          <UTest key={index} title={test.slot_name} time={test.start_time} id={test.slot_id}/>
+          <UTest key={index} title={test.slot_name} time={formatter.format((new Date(test.start_time)))} id={test.slot_id}/>
         ))}
 
       </Card>
