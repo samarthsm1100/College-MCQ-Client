@@ -1,5 +1,6 @@
 'use client'
 import { Button } from "@nextui-org/react";
+import NavigationBar from "../../../components/Navbar";
 
 const Instruction: React.FC = () => {
 
@@ -14,6 +15,8 @@ const Instruction: React.FC = () => {
     const formattedToday = dd + '/' + mm + '/' + yyyy;
 
   return (
+    <>
+    <NavigationBar />
     <div className="mx-80 my-10 text-center">
         
         {/* Instructions */}
@@ -65,6 +68,7 @@ const Instruction: React.FC = () => {
             Start
         </Button>
     </div>
+    </>
   )
 }
 export default Instruction

@@ -21,6 +21,7 @@ import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@nextui-org/react";
+import {useRouter} from 'next/navigation'
 import instance from "@/api/axios";
 // import { ResponsiveBar } from "@nivo/bar"
 import {
@@ -34,8 +35,10 @@ import {
 import { JSX, SVGProps, use } from "react";
 import Custom_Chart from "@/app/component/Custom_Chart";
 import { set } from "react-hook-form";
+import NavigationBar from "../../../components/Navbar";
 
 export function Dashboard() {
+  const router = useRouter()
   const [UpcomingTestdata, setUpcomingTestdata] = useState([]);
   const [RecentTestsdata, setRecentTestsdata] = useState({}); 
   const [OverallPerformancedata, setOverallPerformancedata] = useState({});
@@ -79,15 +82,14 @@ export function Dashboard() {
   }
 
   useEffect(() => {
-    
     getUpcomingTest();
     getRecentTests();
     getOverallPerformance();
   }, []);
-  
 
   return (
     <>
+    <NavigationBar />
       <Card className="my-2">
         <CardHeader className="flex items-center gap-4">
           <CardTitle>Upcoming Test</CardTitle>
