@@ -14,6 +14,7 @@ export default function QuestionsPage() {
   const [index, setIndex] = useState(1);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isReview, setIsReview] = useState<boolean[]>([]);
+  const [isSubmit, setIsSubmit] = useState<boolean[]>([]);
   const [radio, setRadio] = useState<number[]>([]);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function QuestionsPage() {
     console.log(storedQuestions)
     setQuestions(storedQuestions);
     setIsReview(Array.from({ length: storedQuestions.length }, () => false));
+    setIsSubmit(Array.from({ length: storedQuestions.length }, () => false));
     setRadio(Array.from({ length: storedQuestions.length }, () => -1));
   }, []);
 
@@ -55,7 +57,7 @@ export default function QuestionsPage() {
   return (
     <main className='flex '>
       <div className='overflow-y-scroll h-[90vh] px-4'>
-        <QuestionsList setIndex={setIndex} length={questions.length} />
+        <QuestionsList setIndex={setIndex} length={questions.length} setIsSubmit={setIsSubmit} isSubmit={isSubmit}/>
       </div>
       <section className='text-left px-4 flex flex-col justify-between'>
         <h1 className='text-5xl max-w-5xl'>

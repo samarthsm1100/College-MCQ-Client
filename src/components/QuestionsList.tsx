@@ -2,7 +2,7 @@ import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 
-export default function QuestionsList({length = 0 ,setIndex}:{length:number,setIndex:Dispatch<SetStateAction<number>>}) {
+export default function QuestionsList({length = 0 ,setIndex,isSubmit,setIsSubmit}:{length:number,setIndex:Dispatch<SetStateAction<number>>,setIsSubmit:Dispatch<SetStateAction<boolean[]>>,isSubmit:boolean[]}) {
     const arr = Array.from({length}, (_, i) => i + 1);
   return (
     <section className="w-fit flex flex-col gap-8">{
