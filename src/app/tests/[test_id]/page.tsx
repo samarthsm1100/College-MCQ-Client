@@ -10,11 +10,11 @@ type Question = {
   correct_option: number;
 };
 
-  function Spinner(){
-    return(
-        <div className="animate-spin absolute inset-0 m-auto rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-    )
-  }
+  // function Spinner(){
+  //   return(
+  //       <div className="animate-spin absolute inset-0 m-auto rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+  //   )
+  // }
 
 export default function QuestionsPage() {
   const [loading,setLoading] = useState(true);
@@ -70,11 +70,12 @@ export default function QuestionsPage() {
   }
 
   if (!question) {
-    return <Spinner />
+    return 
+     <Loader />
   }
 
   if(loading){
-    return <Spinner/>
+    return <Loader/>
   }
 
   return (
@@ -129,4 +130,13 @@ export default function QuestionsPage() {
       </section>
     </main>
   );
+}
+function Loader(){
+  return(
+    <div className='mx-auto flex flex-col items-center justify-center h-screen'>
+      {/* <Spinner /> */}
+      <h1 className='text-3xl'>Loading...</h1>
+    </div>
+
+  )
 }
