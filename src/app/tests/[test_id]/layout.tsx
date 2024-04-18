@@ -6,9 +6,13 @@ import Timer from "@/components/Timer";
 import { Button } from "@nextui-org/react";
 import { FormEventHandler, MouseEventHandler, useEffect, useState } from "react";
 import axios from  '../../../api/axios'
+import { useRouter } from "next/navigation";
+
+
 
 export default function Layout({children,params}:{children:React.ReactNode,params:{test_id:string}}) {
   // localStorage.setItem('questions',JSON.stringify(questions));
+  const router = useRouter();
   const [us,setUs] = useState(0);
   const handleSubmit = async () => {
     await axios({url:'/question/endTest',data:{
@@ -19,6 +23,8 @@ export default function Layout({children,params}:{children:React.ReactNode,param
     method:'POST'
   }).then(res=>{
     console.log(res.data)
+    localStorage.setItem('userTestResponse',JSON.stringify(res.data))
+    router.push(`/testpreview`)
   }
   ).catch(err=>{console.error(err)})
   }
