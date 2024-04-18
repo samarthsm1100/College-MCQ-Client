@@ -10,12 +10,29 @@ type Question = {
   correct_option: number;
 };
 
+  function Spinner(){
+    return(
+        <div className="animate-spin absolute inset-0 m-auto rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+    )
+  }
+
 export default function QuestionsPage() {
+  const [loading,setLoading] = useState(true);
   const [index, setIndex] = useState(1);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isReview, setIsReview] = useState<boolean[]>([]);
   const [isSubmit, setIsSubmit] = useState<boolean[]>([]);
   const [radio, setRadio] = useState<number[]>([]);
+
+  useEffect(()=>{
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer); // This will clear the timer when the component unmounts
+  
+  },[])
 
   useEffect(() => {
     const storedQuestions = JSON.parse(
@@ -53,7 +70,11 @@ export default function QuestionsPage() {
   }
 
   if (!question) {
-    return <div>No question available</div>;
+    return <Spinner />
+  }
+
+  if(loading){
+    return <Spinner/>
   }
 
   return (
