@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 export default function Layout({children,params}:{children:React.ReactNode,params:{test_id:string}}) {
   // localStorage.setItem('questions',JSON.stringify(questions));
   const router = useRouter();
+  let [startTime,setStartTime] = useState("");
+  let [endTime,setEndTime] = useState("");
   const [us,setUs] = useState(0);
   const handleSubmit = async () => {
     await axios({url:'/question/endTest',data:{
@@ -38,12 +40,19 @@ export default function Layout({children,params}:{children:React.ReactNode,param
       .then(res=>{
         localStorage.setItem('questions',JSON.stringify(res.data.questions));
         setUs(res.data.user_slot_id);
+        setStartTime(res.data.starttime);
+        setEndTime(res.data.endtime);
       })
       .catch(err=>{console.error(err)})
     }
     getQuestions()
   },[params.test_id])
+    const diff = Number(endTime) - Number(startTime);
 
+// Calculate hours, minutes, and seconds
+  const hrs = diff / (1000*60*60);
+  const mins = Math.floor((diff / (1000*60) )% 60);
+  const secs = Math.floor((diff / 1000) % 60);
   return (
     <>
         <div>
